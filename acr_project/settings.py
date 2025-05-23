@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-%dymho0^#)g(8530i^1h)c&(ifsl0c-b&nri#ivqvg0jq1_#4#
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+AUTH_USER_MODEL = 'Home.User'
 
 # Application definition
 
@@ -38,10 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'acr_project',
     'Home',
     'tailwind',
     'theme',
     'django_browser_reload',
+    'verify_email',
 
 ]
 
@@ -86,8 +88,12 @@ WSGI_APPLICATION = 'acr_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'acr',
+        'USER': 'postgres',
+        'PASSWORD': 'Root',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
@@ -111,6 +117,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
@@ -128,7 +137,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # directory where your global static files are stored
+    BASE_DIR / "static/images",  # directory where your global static files are stored
 ]
 
 # Default primary key field type
@@ -137,5 +146,14 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"  # Adjust if your npm is installed elsewhere
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER ='sandrineiradukunda2002@gmail.com'
+EMAIL_HOST_PASSWORD = 'wnos hekd uhbo slqu'
+
+DEFAULT_FROM_EMAIL = 'sandrineiradukunda2002@gmail.com'
